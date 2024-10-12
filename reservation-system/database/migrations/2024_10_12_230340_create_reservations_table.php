@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->date('reservation_date');
+            $table->time('reservation_time');
+            $table->string('resource'); // Ex: Sala ou equipamento
+            $table->boolean('is_confirmed')->default(false);
             $table->timestamps();
         });
+        
     }
 
     /**
