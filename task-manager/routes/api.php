@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\TaskController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::post('/tasks', [TaskController::class, 'store']);
-Route::put('/tasks/{id}', [TaskController::class, 'update']);
-Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
+// Expor o endpoint para autenticar o usuário
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return response()->json($request->user());
+});
+
+// Definir rotas de CRUD para o controlador TaskController
+// Essas rotas permitem operações de CRUD para tarefas
+Route::apiResource('tasks', TaskController::class)->middleware('auth:sanctum');

@@ -5,9 +5,9 @@ use Illuminate\Support\Str;
 return [
 
     /*
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     | Default Database Connection Name
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     |
     | Here you may specify which of the database connections below you wish
     | to use as your default connection for database operations. This is
@@ -19,9 +19,9 @@ return [
     'default' => env('DB_CONNECTION', 'sqlite'),
 
     /*
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     | Database Connections
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     |
     | Below are all of the database connections defined for your application.
     | An example configuration is provided for each database system which
@@ -47,7 +47,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'laravel'),
+            'database' => env('DB_DATABASE', 'task_manager_mysql'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -60,6 +60,18 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => env('MONGO_DB_HOST', '127.0.0.1'),
+            'port' => env('MONGO_DB_PORT', 27017),
+            'database' => env('MONGO_DB_DATABASE', 'task_manager_mongo'), // Corrigido para usar a variável de ambiente correta
+            'username' => env('MONGO_DB_USERNAME', null), // Adicionei para consistência
+            'password' => env('MONGO_DB_PASSWORD', null), // Adicionei para consistência
+            'options' => [ // Adicione opções conforme necessário
+                'database' => env('MONGO_DB_AUTH_DATABASE', 'admin'), // Banco de autenticação padrão
+            ],
         ],
 
         'mariadb' => [
@@ -115,9 +127,9 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     | Migration Repository Table
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     |
     | This table keeps track of all the migrations that have already run for
     | your application. Using this information, we can determine which of
@@ -131,9 +143,9 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     | Redis Databases
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------------------
     |
     | Redis is an open source, fast, and advanced key-value store that also
     | provides a richer body of commands than a typical key-value system
